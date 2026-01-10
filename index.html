@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feline Neurological Diagnosis Expert System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="neural-grid"></div>
+    
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-cat"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Feline Neurological Diagnosis</h1>
+                        <span class="subtitle">Expert System</span>
+                    </div>
+                </div>
+                <div class="system-status">
+                    <div class="status-indicator"></div>
+                    <span>System Ready</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <div class="content-grid">
+                    
+                    <!-- Input Panel -->
+                    <div class="panel input-panel">
+                        <div class="panel-header">
+                            <h2 style="color: black;"><i class="fa-solid fa-stethoscope"></i> Clinical Assessment</h2>
+                            <div class="priority-info">
+                                <span class="priority-badge">Priority Logic: 1-8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="panel-content">
+                            <form id="diagnosisForm" class="diagnosis-form">
+                                
+                                <!-- Basic Patient Information -->
+                                <div class="form-section">
+                                    <h3><i class="fa-solid fa-info-circle"></i> Patient Information</h3>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="age_group">Age Group</label>
+                                            <select id="age_group" class="form-select" required>
+                                                <option value="">Select Age Group</option>
+                                                <option value="kitten">Kitten (0-1 year)</option>
+                                                <option value="adult">Adult (1-7 years)</option>
+                                                <option value="senior">Senior (7+ years)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="onset_speed">Onset Speed</label>
+                                            <select id="onset_speed" class="form-select" required>
+                                                <option value="">Select Onset</option>
+                                                <option value="sudden">Sudden (Hours to Days)</option>
+                                                <option value="gradual">Gradual (Weeks to Months)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Mobility Assessment -->
+                                <div class="form-section">
+                                    <h3><i class="fa-solid fa-walking"></i> Mobility Status</h3>
+                                    <div class="form-group">
+                                        <label for="mobility_status">Current Mobility</label>
+                                        <select id="mobility_status" class="form-select" required>
+                                            <option value="">Select Mobility Status</option>
+                                            <option value="normal">Normal (Walking normally)</option>
+                                            <option value="wobbly">Wobbly/Unsteady (Ataxia)</option>
+                                            <option value="paralyzed">Paralyzed/Dragging Legs</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Seizure Assessment -->
+                                <div class="form-section">
+                                    <h3><i class="fa-solid fa-brain"></i> Seizure Activity</h3>
+                                    <div class="form-group">
+                                        <label for="seizures">Seizures Present</label>
+                                        <select id="seizures" class="form-select" required>
+                                            <option value="">Select Seizure Status</option>
+                                            <option value="none">None Observed</option>
+                                            <option value="mild">Mild (Focal twitching, fly-biting, tremors, spacing out)</option>
+                                            <option value="severe">Severe (Full body convulsions, paddling, loss of consciousness)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Specific Clinical Signs -->
+                                <div class="form-section">
+                                    <h3><i class="fa-solid fa-clipboard-check"></i> Specific Clinical Signs</h3>
+                                    <div class="symptoms-grid">
+                                        
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" id="eye_signs">
+                                            <div class="checkbox-content">
+                                                <i class="fa-solid fa-eye"></i>
+                                                <span>Eye Signs</span>
+                                                <small>Nystagmus/Eye Twitching</small>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" id="pain_signs">
+                                            <div class="checkbox-content">
+                                                <i class="fa-solid fa-exclamation-triangle"></i>
+                                                <span>Pain Signs</span>
+                                                <small>Crying/Hiding/Reluctance to Move</small>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" id="head_tilt">
+                                            <div class="checkbox-content">
+                                                <i class="fa-solid fa-head-side-virus"></i>
+                                                <span>Head Tilt</span>
+                                                <small>Persistent head tilting</small>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" id="recent_trauma">
+                                            <div class="checkbox-content">
+                                                <i class="fa-solid fa-bandage"></i>
+                                                <span>Recent Trauma</span>
+                                                <small>Injury/Accident within 48 hours</small>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" id="cold_limbs">
+                                            <div class="checkbox-content">
+                                                <i class="fa-solid fa-thermometer-empty"></i>
+                                                <span>Cold Limbs</span>
+                                                <small>Hind legs feel cold to touch</small>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" id="neck_flexion">
+                                            <div class="checkbox-content">
+                                                <i class="fa-solid fa-arrow-down"></i>
+                                                <span>Neck Flexion</span>
+                                                <small>Neck curling downward</small>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" id="ear_issues">
+                                            <div class="checkbox-content">
+                                                <i class="fa-solid fa-ear-listen"></i>
+                                                <span>Ear Issues</span>
+                                                <small>Discharge/Odor/Scratching</small>
+                                            </div>
+                                        </label>
+                                        
+                                    </div>
+                                </div>
+
+                                <!-- Diagnosis Button -->
+                                <div id="completionIndicator" class="completion-indicator">
+                                    <!-- Completion status will be shown here -->
+                                </div>
+                                
+                                <button type="button" id="runDiagnosisBtn" class="analyze-btn">
+                                    <i class="fa-solid fa-microscope"></i>
+                                    <span>Run Enhanced Diagnosis</span>
+                                </button>
+                                
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div class="panel results-panel">
+                        <div class="panel-header">
+                            <h2 style="color: black;"><i class="fa-solid fa-clipboard-list"></i> Diagnosis Result</h2>
+                            <div class="single-result-badge">
+                                <span>Single Output System</span>
+                            </div>
+                        </div>
+
+                        <div class="panel-content">
+                            
+                            <!-- Empty State -->
+                            <div id="emptyState" class="empty-state">
+                                <div class="empty-icon">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                </div>
+                                <h3>Awaiting Clinical Data</h3>
+                                <p>Complete the assessment form to receive a single, prioritized diagnosis</p>
+                                <div class="priority-explanation">
+                                    <h4>Priority Logic (1-30 Rules):</h4>
+                                    <div class="rule-tiers">
+                                        <div class="tier">
+                                            <strong>TIER 1: Critical/Trauma (1-5)</strong>
+                                            <small>Traumatic Brain Injury, Spinal Fracture, General Trauma, Saddle Thrombus, Acute Toxicity</small>
+                                        </div>
+                                        <div class="tier">
+                                            <strong>TIER 2: Metabolic/Acute (6-11)</strong>
+                                            <small>Hypoglycemia, Thiamine Deficiency, Hypertension, Hepatic Encephalopathy, Hypocalcemia, Botulism</small>
+                                        </div>
+                                        <div class="tier">
+                                            <strong>TIER 3: Infectious/Inflammatory (12-16)</strong>
+                                            <small>Neuro FIP, Toxoplasmosis, Otitis Interna, Nasopharyngeal Polyp, Meningitis</small>
+                                        </div>
+                                        <div class="tier">
+                                            <strong>TIER 4: Structural/Tumors (17-21)</strong>
+                                            <small>Brain Tumors, Spinal Tumors, Hydrocephalus</small>
+                                        </div>
+                                        <div class="tier">
+                                            <strong>TIER 5: Functional/Degenerative (22-26)</strong>
+                                            <small>IVDD, Hyperesthesia, Epilepsy, Diabetic Neuropathy, Cerebellar Hypoplasia</small>
+                                        </div>
+                                        <div class="tier">
+                                            <strong>TIER 6: Exclusion (27-30)</strong>
+                                            <small>Stroke, Vestibular, Dementia, Undetermined</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Single Result Display -->
+                            <div id="resultContainer" class="result-container hidden">
+                                <div class="result-card">
+                                    <div class="result-header">
+                                        <div class="priority-number" id="priorityNumber">
+                                            <!-- Priority number will be inserted here -->
+                                        </div>
+                                        <div class="result-title">
+                                            <h3 id="diagnosisTitle">Diagnosis Title</h3>
+                                            <span class="rule-triggered" id="ruleTriggered">Rule Triggered</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="result-content">
+                                        <div class="diagnosis-description" id="diagnosisDescription">
+                                            <!-- Diagnosis description will be inserted here -->
+                                        </div>
+                                        
+                                        <div class="clinical-notes" id="clinicalNotes">
+                                            <!-- Clinical notes will be inserted here -->
+                                        </div>
+                                        
+                                        <div class="next-steps" id="nextSteps">
+                                            <!-- Next steps will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- System Logic Display -->
+                                <div class="logic-explanation">
+                                    <h4><i class="fa-solid fa-cogs"></i> System Logic</h4>
+                                    <p id="logicExplanation">
+                                        <!-- Logic explanation will be inserted here -->
+                                    </p>
+                                </div>
+                                
+                                <!-- Disclaimer -->
+                                <div class="disclaimer">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <p><strong>Veterinary Consultation Required:</strong> This expert system provides educational diagnostic suggestions only. Always consult a licensed veterinarian for definitive diagnosis and treatment.</p>
+                                </div>
+
+                                </div>
+                            </div>
+                            
+                            <!-- AI Chat Assistant - Always Visible -->
+                            <div class="chat-section">
+                                <div class="chat-header">
+                                    <h4><i class="fa-solid fa-robot"></i> Ask AI Assistant</h4>
+                                    <button id="toggleChat" class="toggle-chat-btn">
+                                        <i class="fa-solid fa-chevron-up"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="chat-content" id="chatContent">
+                                    <!-- Chat Messages -->
+                                    <div id="chatMessages" class="chat-messages">
+                                        <div class="chat-message assistant-message">
+                                            <div class="message-content">
+                                                <p>💬 I can help explain diagnoses and answer questions about feline neurological conditions.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Quick Questions -->
+                                    <div class="quick-questions">
+                                        <div class="question-buttons">
+                                            <button class="quick-question-btn" data-question="How does this diagnosis system work?">
+                                                How does this work?
+                                            </button>
+                                            <button class="quick-question-btn" data-question="What should I look for in my cat?">
+                                                What to look for?
+                                            </button>
+                                            <button class="quick-question-btn" data-question="When should I see a vet?">
+                                                When to see vet?
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Chat Input -->
+                                    <div class="chat-input-area">
+                                        <div class="chat-input-container">
+                                            <input type="text" id="chatInput" placeholder="Ask about feline neurological conditions..." maxlength="300">
+                                            <button id="sendChatBtn" class="send-chat-btn">
+                                                <i class="fa-solid fa-paper-plane"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loading-content">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+                <h3>Processing Priority Logic...</h3>
+                <p id="loadingText">Evaluating diagnostic rules 1-8</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="api.js"></script>
+    <script src="data.js"></script>
+    <script src="engine.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
