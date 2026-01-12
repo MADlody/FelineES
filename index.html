@@ -41,9 +41,6 @@
                     <div class="panel input-panel">
                         <div class="panel-header">
                             <h2 style="color: black;"><i class="fa-solid fa-stethoscope"></i> Clinical Assessment</h2>
-                            <div class="priority-info">
-                                <span class="priority-badge">Priority Logic: 1-8</span>
-                            </div>
                         </div>
                         
                         <div class="panel-content">
@@ -51,10 +48,13 @@
                                 
                                 <!-- Basic Patient Information -->
                                 <div class="form-section">
-                                    <h3><i class="fa-solid fa-info-circle"></i> Patient Information</h3>
+                                    <h3><i class="fa-solid fa-info-circle"></i> Feline's Information</h3>
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label for="age_group">Age Group</label>
+                                            <label for="age_group">
+                                                Age Group 
+                                                <i class="fa-solid fa-info-circle info-icon" title="Select the cat's approximate age range (e.g., Kitten 0-1 year, Adult 1-7 years, or Senior 7+ years)."></i>
+                                            </label>
                                             <select id="age_group" class="form-select" required>
                                                 <option value="">Select Age Group</option>
                                                 <option value="kitten">Kitten (0-1 year)</option>
@@ -63,7 +63,10 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="onset_speed">Onset Speed</label>
+                                            <label for="onset_speed">
+                                                Onset Speed 
+                                                <i class="fa-solid fa-info-circle info-icon" title="Did the problem happen suddenly (e.g., they were fine this morning, now they aren't) or gradually (getting worse over weeks or months)?"></i>
+                                            </label>
                                             <select id="onset_speed" class="form-select" required>
                                                 <option value="">Select Onset</option>
                                                 <option value="sudden">Sudden (Hours to Days)</option>
@@ -77,7 +80,10 @@
                                 <div class="form-section">
                                     <h3><i class="fa-solid fa-walking"></i> Mobility Status</h3>
                                     <div class="form-group">
-                                        <label for="mobility_status">Current Mobility</label>
+                                        <label for="mobility_status">
+                                            Current Mobility 
+                                            <i class="fa-solid fa-info-circle info-icon" title="Normal: The cat walks perfectly fine. Wobbly/Unsteady (Ataxia): The cat walks like it is drunk or dizzy. It stumbles but can still stand up. Paralyzed/Dragging Legs: The cat cannot stand up at all. It drags its back legs behind it like dead weight."></i>
+                                        </label>
                                         <select id="mobility_status" class="form-select" required>
                                             <option value="">Select Mobility Status</option>
                                             <option value="normal">Normal (Walking normally)</option>
@@ -91,7 +97,10 @@
                                 <div class="form-section">
                                     <h3><i class="fa-solid fa-brain"></i> Seizure Activity</h3>
                                     <div class="form-group">
-                                        <label for="seizures">Seizures Present</label>
+                                        <label for="seizures">
+                                            Seizures Present 
+                                            <i class="fa-solid fa-info-circle info-icon" title="None Observed: No seizures seen. Mild: Weird behavior like twitching one eye, staring blankly at a wall (zoning out), or snapping at invisible flies. Severe: The 'scary' kind. The cat falls over, shakes violently, and paddles its legs like it is swimming."></i>
+                                        </label>
                                         <select id="seizures" class="form-select" required>
                                             <option value="">Select Seizure Status</option>
                                             <option value="none">None Observed</option>
@@ -106,7 +115,7 @@
                                     <h3><i class="fa-solid fa-clipboard-check"></i> Specific Clinical Signs</h3>
                                     <div class="symptoms-grid">
                                         
-                                        <label class="checkbox-card">
+                                        <label class="checkbox-card" title="Look closely at the cat's eyes. Are the eyeballs jerking back and forth, moving side-to-side, or twitching rapidly on their own? This isn't just blinking; it looks like the eyes can't stay still.">
                                             <input type="checkbox" id="eye_signs">
                                             <div class="checkbox-content">
                                                 <i class="fa-solid fa-eye"></i>
@@ -115,7 +124,7 @@
                                             </div>
                                         </label>
                                         
-                                        <label class="checkbox-card">
+                                        <label class="checkbox-card" title="Since cats can't talk, look for behavior changes. Is the cat vocalizing (crying/yowling) more than usual? Are they hiding under furniture and refusing to come out? Do they growl or try to get away when you touch them?">
                                             <input type="checkbox" id="pain_signs">
                                             <div class="checkbox-content">
                                                 <i class="fa-solid fa-exclamation-triangle"></i>
@@ -124,7 +133,7 @@
                                             </div>
                                         </label>
                                         
-                                        <label class="checkbox-card">
+                                        <label class="checkbox-card" title="Is the cat holding its head tipped to one side consistently? It might look like they are permanently confused or dizzy. This isn't just a momentary glance; they walk and sit with their head angled sideways.">
                                             <input type="checkbox" id="head_tilt">
                                             <div class="checkbox-content">
                                                 <i class="fa-solid fa-head-side-virus"></i>
@@ -133,7 +142,7 @@
                                             </div>
                                         </label>
                                         
-                                        <label class="checkbox-card">
+                                        <label class="checkbox-card" title="Has the cat had an accident in the last 2 days (48 hours)? This covers things like falling from a high place, getting hit by a car, getting stepped on, or being in a fight with another animal.">
                                             <input type="checkbox" id="recent_trauma">
                                             <div class="checkbox-content">
                                                 <i class="fa-solid fa-bandage"></i>
@@ -142,7 +151,7 @@
                                             </div>
                                         </label>
                                         
-                                        <label class="checkbox-card">
+                                        <label class="checkbox-card" title="Touch the cat's back feet (paws). Do they feel significantly colder than the rest of the cat's body? This is a specific check for blood flow issues (like a blood clot) to the hind legs.">
                                             <input type="checkbox" id="cold_limbs">
                                             <div class="checkbox-content">
                                                 <i class="fa-solid fa-thermometer-empty"></i>
@@ -151,7 +160,7 @@
                                             </div>
                                         </label>
                                         
-                                        <label class="checkbox-card">
+                                        <label class="checkbox-card" title="Is the cat curling its neck downward so its chin is tucked near its chest? It might look like they are staring at their own toes and seem unable or weak when trying to lift their head up.">
                                             <input type="checkbox" id="neck_flexion">
                                             <div class="checkbox-content">
                                                 <i class="fa-solid fa-arrow-down"></i>
@@ -160,7 +169,7 @@
                                             </div>
                                         </label>
                                         
-                                        <label class="checkbox-card">
+                                        <label class="checkbox-card" title="Check the ears for obvious signs of infection. Is there a bad smell, fluid/gunk coming out, or is the cat furiously scratching at its ears or shaking its head constantly?">
                                             <input type="checkbox" id="ear_issues">
                                             <div class="checkbox-content">
                                                 <i class="fa-solid fa-ear-listen"></i>
@@ -190,9 +199,6 @@
                     <div class="panel results-panel">
                         <div class="panel-header">
                             <h2 style="color: black;"><i class="fa-solid fa-clipboard-list"></i> Diagnosis Result</h2>
-                            <div class="single-result-badge">
-                                <span>Single Output System</span>
-                            </div>
                         </div>
 
                         <div class="panel-content">
