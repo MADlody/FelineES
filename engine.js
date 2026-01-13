@@ -139,8 +139,7 @@ class FelineNeuroDiagnosisEngine {
         
         explanation += `🎯 SELECTED DIAGNOSIS: ${rule.name}\n`;
         explanation += `📊 Priority Level: ${rule.priority} of 30\n`;
-        explanation += `🔍 Total Rules Evaluated: ${this.sortedRules.length} (ALL rules checked)\n`;
-        explanation += `🎯 Total Matches Found: ${allMatches.length}\n\n`;
+        explanation += `🔍 Total Rules Evaluated: ${this.sortedRules.length} (ALL rules checked)\n\n`;
         
         // Show why this specific diagnosis was selected
         explanation += `📋 Why this diagnosis was selected:\n`;
