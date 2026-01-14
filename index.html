@@ -211,7 +211,7 @@
                                 <h3>Awaiting Clinical Data</h3>
                                 <p>Complete the assessment form to receive a single, prioritized diagnosis</p>
                                 <div class="priority-explanation">
-                                    <h4>Priority Logic (1-30 Rules):</h4>
+                                    <h4>Priority Logic (1-29 Rules):</h4>
                                     <div class="rule-tiers">
                                         <div class="tier">
                                             <strong>TIER 1: Critical/Trauma (1-5)</strong>
@@ -230,11 +230,11 @@
                                             <small>Brain Tumors, Spinal Tumors, Hydrocephalus</small>
                                         </div>
                                         <div class="tier">
-                                            <strong>TIER 5: Functional/Degenerative (22-26)</strong>
-                                            <small>IVDD, Hyperesthesia, Epilepsy, Diabetic Neuropathy, Cerebellar Hypoplasia</small>
+                                            <strong>TIER 5: Functional/Degenerative (22-24)</strong>
+                                            <small>IVDD, Hyperesthesia, Epilepsy, Cerebellar Hypoplasia</small>
                                         </div>
                                         <div class="tier">
-                                            <strong>TIER 6: Exclusion (27-30)</strong>
+                                            <strong>TIER 6: Exclusion (25-29)</strong>
                                             <small>Stroke, Vestibular, Dementia, Undetermined</small>
                                         </div>
                                     </div>
@@ -300,14 +300,16 @@
                 <div class="loading-spinner">
                     <div class="spinner"></div>
                 </div>
-                <h3>Processing Priority Logic...</h3>
-                <p id="loadingText">Evaluating diagnostic rules 1-8</p>
+                <h3>Processing Forward Chaining...</h3>
+                <p id="loadingText">Running inference engine</p>
             </div>
         </div>
     </div>
 
     <script src="data.js"></script>
-    <script src="engine.js"></script>
+    <script src="database.js"></script>
+    <script src="data.js"></script>
+    <script src="forward_chaining_engine.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

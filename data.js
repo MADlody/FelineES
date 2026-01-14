@@ -1,40 +1,17 @@
-/**
- * Feline Neurological Diagnosis Expert System - Expanded Knowledge Base (30 Rules)
- * 
- * CRITICAL: This system implements PRIORITY WATERFALL LOGIC
- * - Rules are evaluated in STRICT ORDER (Priority 1-30)
- * - The FIRST matching rule determines the diagnosis
- * - Lower priority rules are IGNORED once a match is found
- * - System returns EXACTLY ONE diagnosis per evaluation
- * 
- * SEIZURE CLASSIFICATION:
- * - none: No seizure activity observed
- * - mild: Focal twitching, fly-biting, tremors, spacing out
- * - severe: Full body convulsions, paddling, loss of consciousness
- */
-
 console.log('📊 Loading FelineNeuroDiagnosisData...');
 
 const FelineNeuroDiagnosisData = {
     
-    /**
-     * PRIORITY DIAGNOSTIC RULES (1-30)
-     * 
-     * IMPORTANT: These rules MUST be evaluated in the exact order listed below.
-     * The engine will stop at the FIRST matching rule and return that diagnosis.
-     * This implements the "Single Output" requirement with waterfall logic.
-     */
+
     diagnosticRules: [
         
-        // --- TIER 1: CRITICAL / TRAUMA (Rules 1-5) ---
-        
-        // PRIORITY 1: TRAUMATIC BRAIN INJURY (Highest Priority)
+
         {
             priority: 1,
             id: 'TRAUMATIC_BRAIN_INJURY',
             name: 'Traumatic Brain Injury',
             
-            // Rule Logic: Recent trauma AND severe seizures (indicates brain bleed/swelling)
+            
             condition: (inputs) => {
                 return inputs.recent_trauma === true && inputs.seizures === 'severe';
             },
@@ -60,13 +37,11 @@ const FelineNeuroDiagnosisData = {
             color: '#dc2626'
         },
 
-        // PRIORITY 2: SPINAL FRACTURE
         {
             priority: 2,
             id: 'SPINAL_FRACTURE',
             name: 'Spinal Fracture',
             
-            // Rule Logic: Recent trauma AND paralyzed mobility
             condition: (inputs) => {
                 return inputs.recent_trauma === true && inputs.mobility_status === 'paralyzed';
             },
@@ -92,13 +67,11 @@ const FelineNeuroDiagnosisData = {
             color: '#dc2626'
         },
 
-        // PRIORITY 3: GENERAL TRAUMA
         {
             priority: 3,
             id: 'GENERAL_TRAUMA',
             name: 'General Traumatic Injury',
             
-            // Rule Logic: Any recent trauma (catches all other trauma cases)
             condition: (inputs) => {
                 return inputs.recent_trauma === true;
             },
@@ -124,13 +97,11 @@ const FelineNeuroDiagnosisData = {
             color: '#dc2626'
         },
 
-        // PRIORITY 4: SADDLE THROMBUS
         {
             priority: 4,
             id: 'SADDLE_THROMBUS',
             name: 'Feline Aortic Thromboembolism (Saddle Thrombus)',
             
-            // Rule Logic: Abnormal mobility + pain + cold limbs
             condition: (inputs) => {
                 return inputs.mobility_status !== 'normal' && 
                        inputs.pain_signs === true && 
@@ -158,13 +129,11 @@ const FelineNeuroDiagnosisData = {
             color: '#dc2626'
         },
 
-        // PRIORITY 5: ACUTE TOXICITY
         {
             priority: 5,
             id: 'ACUTE_TOXICITY',
             name: 'Acute Toxicity (Poisoning)',
             
-            // Rule Logic: Sudden onset + severe seizures + eye signs
             condition: (inputs) => {
                 return inputs.onset_speed === 'sudden' && 
                        inputs.seizures === 'severe' && 
@@ -192,15 +161,12 @@ const FelineNeuroDiagnosisData = {
             color: '#dc2626'
         },
 
-        // --- TIER 2: METABOLIC & ACUTE (Rules 6-11) ---
 
-        // PRIORITY 6: HYPOGLYCEMIA
         {
             priority: 6,
             id: 'HYPOGLYCEMIA',
             name: 'Severe Hypoglycemia',
             
-            // Rule Logic: Kitten + sudden onset + any seizures
             condition: (inputs) => {
                 return inputs.age_group === 'kitten' && 
                        inputs.onset_speed === 'sudden' && 
@@ -228,13 +194,11 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
 
-        // PRIORITY 7: THIAMINE DEFICIENCY
         {
             priority: 7,
             id: 'THIAMINE_DEFICIENCY',
             name: 'Thiamine Deficiency (Vitamin B1)',
             
-            // Rule Logic: Neck flexion present (pathognomonic sign)
             condition: (inputs) => {
                 return inputs.neck_flexion === true;
             },
@@ -260,13 +224,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 8: HYPERTENSION
         {
             priority: 8,
             id: 'HYPERTENSION',
             name: 'Systemic Hypertension (High Blood Pressure)',
             
-            // Rule Logic: Senior + sudden + (mild seizures OR eye signs) + normal mobility
             condition: (inputs) => {
                 return inputs.age_group === 'senior' && 
                        inputs.onset_speed === 'sudden' && 
@@ -295,13 +257,11 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
 
-        // PRIORITY 9: HEPATIC ENCEPHALOPATHY
         {
             priority: 9,
             id: 'HEPATIC_ENCEPHALOPATHY',
             name: 'Hepatic Encephalopathy (Liver Shunt)',
             
-            // Rule Logic: (Kitten OR adult) + mild seizures + wobbly mobility
             condition: (inputs) => {
                 return (inputs.age_group === 'kitten' || inputs.age_group === 'adult') && 
                        inputs.seizures === 'mild' && 
@@ -329,13 +289,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 10: ACUTE HYPOCALCEMIA
         {
             priority: 10,
             id: 'HYPOCALCEMIA',
             name: 'Acute Hypocalcemia (Eclampsia)',
             
-            // Rule Logic: Sudden onset + mild seizures + wobbly mobility
             condition: (inputs) => {
                 return inputs.onset_speed === 'sudden' && 
                        inputs.seizures === 'mild' && 
@@ -363,13 +321,11 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
 
-        // PRIORITY 11: BOTULISM/TICK PARALYSIS
         {
             priority: 11,
             id: 'BOTULISM_TICK_PARALYSIS',
             name: 'Botulism / Tick Paralysis',
             
-            // Rule Logic: Paralyzed + no pain + sudden onset + no seizures
             condition: (inputs) => {
                 return inputs.mobility_status === 'paralyzed' && 
                        inputs.pain_signs === false && 
@@ -398,15 +354,12 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
         
-        // --- TIER 3: INFECTIOUS & INFLAMMATORY (Rules 12-16) ---
 
-        // PRIORITY 12: NEURO FIP
         {
             priority: 12,
             id: 'NEURO_FIP',
             name: 'Feline Infectious Peritonitis (Neurological Form)',
             
-            // Rule Logic: Kitten + gradual onset + (wobbly OR mild seizures)
             condition: (inputs) => {
                 return inputs.age_group === 'kitten' && 
                        inputs.onset_speed === 'gradual' && 
@@ -434,13 +387,11 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
 
-        // PRIORITY 13: TOXOPLASMOSIS
         {
             priority: 13,
             id: 'TOXOPLASMOSIS',
             name: 'Toxoplasmosis',
             
-            // Rule Logic: Not senior + gradual onset + eye signs
             condition: (inputs) => {
                 return inputs.age_group !== 'senior' && 
                        inputs.onset_speed === 'gradual' && 
@@ -468,13 +419,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 14: OTITIS INTERNA
         {
             priority: 14,
             id: 'OTITIS_INTERNA',
             name: 'Otitis Interna (Inner Ear Infection)',
             
-            // Rule Logic: Ear issues + (head tilt OR wobbly mobility)
             condition: (inputs) => {
                 return inputs.ear_issues === true && 
                        (inputs.head_tilt === true || inputs.mobility_status === 'wobbly');
@@ -501,13 +450,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 15: NASOPHARYNGEAL POLYP
         {
             priority: 15,
             id: 'NASOPHARYNGEAL_POLYP',
             name: 'Nasopharyngeal Polyp',
             
-            // Rule Logic: (Kitten OR adult) + ear issues + head tilt + gradual onset
             condition: (inputs) => {
                 return (inputs.age_group === 'kitten' || inputs.age_group === 'adult') && 
                        inputs.ear_issues === true && 
@@ -536,13 +483,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 16: MENINGITIS/ENCEPHALITIS
         {
             priority: 16,
             id: 'MENINGITIS_ENCEPHALITIS',
             name: 'Meningitis/Encephalitis',
             
-            // Rule Logic: Sudden onset + pain + any seizures (neck pain + seizures)
             condition: (inputs) => {
                 return inputs.onset_speed === 'sudden' && 
                        inputs.pain_signs === true && 
@@ -570,15 +515,12 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
         
-        // --- TIER 4: STRUCTURAL & TUMORS (Rules 17-21) ---
 
-        // PRIORITY 17: BRAIN TUMOR (MENINGIOMA)
         {
             priority: 17,
             id: 'BRAIN_TUMOR_MENINGIOMA',
             name: 'Brain Tumor (Meningioma)',
             
-            // Rule Logic: Senior + gradual onset + mild seizures
             condition: (inputs) => {
                 return inputs.age_group === 'senior' && 
                        inputs.onset_speed === 'gradual' && 
@@ -606,13 +548,11 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
 
-        // PRIORITY 18: HIGH-GRADE BRAIN TUMOR
         {
             priority: 18,
             id: 'HIGH_GRADE_BRAIN_TUMOR',
             name: 'High-Grade Brain Tumor',
             
-            // Rule Logic: Senior + gradual onset + severe seizures
             condition: (inputs) => {
                 return inputs.age_group === 'senior' && 
                        inputs.onset_speed === 'gradual' && 
@@ -640,13 +580,11 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
 
-        // PRIORITY 19: SPINAL TUMOR (LYMPHOMA)
         {
             priority: 19,
             id: 'SPINAL_TUMOR_LYMPHOMA',
             name: 'Spinal Tumor (Lymphoma)',
             
-            // Rule Logic: Senior + paralyzed + gradual onset
             condition: (inputs) => {
                 return inputs.age_group === 'senior' && 
                        inputs.mobility_status === 'paralyzed' && 
@@ -674,13 +612,11 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
 
-        // PRIORITY 20: SPINAL TUMOR (EARLY STAGE)
         {
             priority: 20,
             id: 'SPINAL_TUMOR_EARLY',
             name: 'Spinal Tumor (Early Stage)',
             
-            // Rule Logic: Senior + wobbly + no pain + gradual onset
             condition: (inputs) => {
                 return inputs.age_group === 'senior' && 
                        inputs.mobility_status === 'wobbly' && 
@@ -709,13 +645,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 21: HYDROCEPHALUS
         {
             priority: 21,
             id: 'HYDROCEPHALUS',
             name: 'Hydrocephalus',
             
-            // Rule Logic: Kitten + head tilt + mild seizures + gradual onset
             condition: (inputs) => {
                 return inputs.age_group === 'kitten' && 
                        inputs.head_tilt === true && 
@@ -744,15 +678,12 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
         
-        // --- TIER 5: FUNCTIONAL & DEGENERATIVE (Rules 22-26) ---
 
-        // PRIORITY 22: IVDD (DISC DISEASE)
         {
             priority: 22,
             id: 'IVDD',
             name: 'Intervertebral Disc Disease (IVDD)',
             
-            // Rule Logic: Abnormal mobility + pain + sudden onset
             condition: (inputs) => {
                 return inputs.mobility_status !== 'normal' && 
                        inputs.pain_signs === true && 
@@ -780,13 +711,11 @@ const FelineNeuroDiagnosisData = {
             color: '#ef4444'
         },
 
-        // PRIORITY 23: FELINE HYPERESTHESIA
         {
             priority: 23,
             id: 'FELINE_HYPERESTHESIA',
             name: 'Feline Hyperesthesia Syndrome',
             
-            // Rule Logic: Adult + mild seizures + pain
             condition: (inputs) => {
                 return inputs.age_group === 'adult' && 
                        inputs.seizures === 'mild' && 
@@ -814,13 +743,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 24: IDIOPATHIC EPILEPSY
         {
             priority: 24,
             id: 'IDIOPATHIC_EPILEPSY',
             name: 'Idiopathic Epilepsy',
             
-            // Rule Logic: Adult + severe seizures + normal mobility
             condition: (inputs) => {
                 return inputs.age_group === 'adult' && 
                        inputs.seizures === 'severe' && 
@@ -848,47 +775,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 25: DIABETIC NEUROPATHY
         {
             priority: 25,
-            id: 'DIABETIC_NEUROPATHY',
-            name: 'Diabetic Neuropathy',
-            
-            // Rule Logic: Senior + wobbly + gradual onset
-            condition: (inputs) => {
-                return inputs.age_group === 'senior' && 
-                       inputs.mobility_status === 'wobbly' && 
-                       inputs.onset_speed === 'gradual';
-            },
-            
-            description: 'Peripheral nerve damage from uncontrolled diabetes causing plantigrade stance',
-            
-            clinicalNotes: [
-                'Characteristic "flat-footed" walking on hocks',
-                'Result of chronic hyperglycemia damaging peripheral nerves',
-                'Often first sign of diabetes in cats',
-                'Reversible with proper glucose control'
-            ],
-            
-            nextSteps: [
-                'Blood glucose and fructosamine testing',
-                'Complete urinalysis',
-                'Insulin therapy initiation',
-                'Regular glucose monitoring and dietary management'
-            ],
-            
-            urgency: 'MODERATE',
-            icon: 'fa-syringe',
-            color: '#f59e0b'
-        },
-
-        // PRIORITY 26: CEREBELLAR HYPOPLASIA
-        {
-            priority: 26,
             id: 'CEREBELLAR_HYPOPLASIA',
             name: 'Cerebellar Hypoplasia',
             
-            // Rule Logic: Kitten + wobbly + gradual + no seizures
             condition: (inputs) => {
                 return inputs.age_group === 'kitten' && 
                        inputs.mobility_status === 'wobbly' && 
@@ -917,15 +808,12 @@ const FelineNeuroDiagnosisData = {
             color: '#10b981'
         },
 
-        // --- TIER 6: EXCLUSION (Rules 27-30) ---
 
-        // PRIORITY 27: ISCHEMIC STROKE
         {
-            priority: 27,
+            priority: 26,
             id: 'ISCHEMIC_STROKE',
             name: 'Ischemic Stroke',
             
-            // Rule Logic: Senior + sudden + head tilt + no ear issues
             condition: (inputs) => {
                 return inputs.age_group === 'senior' && 
                        inputs.onset_speed === 'sudden' && 
@@ -954,13 +842,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 28: IDIOPATHIC VESTIBULAR
         {
-            priority: 28,
+            priority: 27,
             id: 'IDIOPATHIC_VESTIBULAR',
             name: 'Idiopathic Vestibular Syndrome',
             
-            // Rule Logic: Sudden + (head tilt OR eye signs) + wobbly
             condition: (inputs) => {
                 return inputs.onset_speed === 'sudden' && 
                        (inputs.head_tilt === true || inputs.eye_signs === true) && 
@@ -988,13 +874,11 @@ const FelineNeuroDiagnosisData = {
             color: '#f59e0b'
         },
 
-        // PRIORITY 29: COGNITIVE DYSFUNCTION
         {
-            priority: 29,
+            priority: 28,
             id: 'COGNITIVE_DYSFUNCTION',
             name: 'Cognitive Dysfunction Syndrome (Dementia)',
             
-            // Rule Logic: Senior + gradual + no seizures
             condition: (inputs) => {
                 return inputs.age_group === 'senior' && 
                        inputs.onset_speed === 'gradual' && 
@@ -1022,13 +906,11 @@ const FelineNeuroDiagnosisData = {
             color: '#10b981'
         },
 
-        // PRIORITY 30: UNDETERMINED
         {
-            priority: 30,
+            priority: 29,
             id: 'UNDETERMINED',
             name: 'Undetermined Neurological Anomaly',
             
-            // Rule Logic: Always true (catches all remaining cases)
             condition: (inputs) => {
                 return true;
             },
@@ -1055,9 +937,7 @@ const FelineNeuroDiagnosisData = {
         }
     ],
 
-    /**
-     * URGENCY LEVEL CONFIGURATIONS
-     */
+
     urgencyLevels: {
         'EMERGENCY': {
             color: '#dc2626',
@@ -1089,9 +969,7 @@ const FelineNeuroDiagnosisData = {
         }
     },
 
-    /**
-     * INPUT FIELD DESCRIPTIONS
-     */
+
     inputDescriptions: {
         age_group: {
             kitten: 'Cats under 1 year of age',
@@ -1118,7 +996,6 @@ const FelineNeuroDiagnosisData = {
 console.log('✅ FelineNeuroDiagnosisData loaded successfully!');
 console.log('📊 Data object:', typeof FelineNeuroDiagnosisData);
 
-// Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = FelineNeuroDiagnosisData;
 }
