@@ -1,13 +1,18 @@
 /**
- * Feline Neurological Diagnosis Expert System - Forward Chaining Engine
  * 
- * FORWARD CHAINING IMPLEMENTATION:
- * 1. Start with user input facts
- * 2. Apply rules to derive new facts
- * 3. Continue until no new facts can be derived
- * 4. Return the most specific diagnosis found
+ *  - meor
+ *      iono how to explain this but this is the way it is
+ *      18/12/25 - forward chaining not working dia tembak multiple rules still
+ *      
  * 
- * This implements true forward chaining inference where facts lead to conclusions
+ *      consultation - legit just find a way to just tembak 1 RULE ONLY
+ *      add more rules (from 12 to 30)
+ *      better than before but every input must be specific cuh 
+ *      
+ * 
+ *      crashing out
+ * 
+ *      
  */
 
 class FelineNeuroForwardChainingEngine {
@@ -161,23 +166,13 @@ class FelineNeuroForwardChainingEngine {
 
         // Convert original diagnostic rules to forward chaining format
         priorityRules.forEach(rule => {
-            const extractedConditions = this.extractConditionsFromRule(rule);
-            
-            // Debug logging for problematic rules
-            if ([9, 15, 22, 25].includes(rule.priority)) {
-                console.log(`🔍 Rule ${rule.priority} (${rule.id}):`, {
-                    conditions: extractedConditions,
-                    originalCondition: rule.condition.toString()
-                });
-            }
-            
             const forwardRule = {
                 id: rule.id,
                 name: rule.name,
-                conditions: extractedConditions,
+                conditions: this.extractConditionsFromRule(rule),
                 conclusions: [`diagnosis_${rule.id.toLowerCase()}`],
                 confidence: this.calculateRuleConfidence(rule),
-                originalRule: rule, // Keep reference to original
+                originalRule: rule,
                 isDiagnosticRule: true
             };
             forwardRules.push(forwardRule);
@@ -186,25 +181,17 @@ class FelineNeuroForwardChainingEngine {
         return forwardRules;
     }
 
-    /**
-     * Extract conditions from original rule logic
-     */
     extractConditionsFromRule(rule) {
         const conditions = [];
-        
-        // Analyze the rule condition function to extract requirements
         const conditionStr = rule.condition.toString();
         
-        // Extract input field checks
         if (conditionStr.includes('recent_trauma === true')) conditions.push('recent_trauma');
         if (conditionStr.includes('seizures === \'severe\'')) conditions.push('seizures_severe');
         if (conditionStr.includes('seizures === \'mild\'')) conditions.push('seizures_mild');
         if (conditionStr.includes('mobility_status === \'paralyzed\'')) conditions.push('mobility_paralyzed');
         if (conditionStr.includes('mobility_status === \'wobbly\'')) conditions.push('mobility_wobbly');
         
-        // Handle NOT conditions (mobility_status !== 'normal' means wobbly OR paralyzed)
         if (conditionStr.includes('mobility_status !== \'normal\'')) {
-            // This means mobility is abnormal (wobbly or paralyzed)
             conditions.push('mobility_abnormal');
         }
         
@@ -215,16 +202,13 @@ class FelineNeuroForwardChainingEngine {
         if (conditionStr.includes('head_tilt === true')) conditions.push('head_tilt');
         if (conditionStr.includes('ear_issues === true')) conditions.push('ear_issues');
         
-        // Handle age group - check for OR patterns first
         const hasKittenOrAdult = conditionStr.includes('age_group === \'kitten\'') && 
                                  conditionStr.includes('age_group === \'adult\'') &&
                                  conditionStr.includes('||');
         
         if (hasKittenOrAdult) {
-            // This rule accepts either kitten OR adult
             conditions.push('age_young_or_adult');
         } else {
-            // Single age requirement
             if (conditionStr.includes('age_group === \'senior\'')) conditions.push('age_senior');
             if (conditionStr.includes('age_group === \'kitten\'')) conditions.push('age_kitten');
             if (conditionStr.includes('age_group === \'adult\'')) conditions.push('age_adult');
@@ -236,64 +220,36 @@ class FelineNeuroForwardChainingEngine {
         return conditions;
     }
 
-    /**
-     * Calculate rule confidence based on priority
-     */
     calculateRuleConfidence(rule) {
-        // Higher priority = higher confidence
-        // Priority 1-5: Very high confidence (0.9-0.95)
-        // Priority 6-15: High confidence (0.8-0.9)
-        // Priority 16-25: Medium confidence (0.7-0.8)
-        // Priority 26-30: Lower confidence (0.6-0.7)
-        
         if (rule.priority <= 5) return 0.95 - (rule.priority - 1) * 0.01;
         if (rule.priority <= 15) return 0.9 - (rule.priority - 6) * 0.01;
         if (rule.priority <= 25) return 0.8 - (rule.priority - 16) * 0.01;
         return 0.7 - (rule.priority - 26) * 0.02;
     }
 
-    /**
-     * MAIN FORWARD CHAINING DIAGNOSIS
-     * 
-     * Implements forward chaining inference:
-     * 1. Convert user inputs to initial facts
-     * 2. Apply rules iteratively to derive new facts
-     * 3. Continue until no new facts can be derived
-     * 4. Select best diagnosis from derived facts
-     */
     runDiagnosis(inputs, options = {}) {
         console.log('🔄 Starting Forward Chaining Diagnosis...');
         console.log('📊 Input data:', inputs);
         
-        // Step 1: Convert inputs to initial facts
         const initialFacts = this.convertInputsToFacts(inputs);
         console.log('📋 Initial facts:', initialFacts);
         
-        // Step 2: Run forward chaining inference
         const inferenceResult = this.forwardChaining(initialFacts);
         console.log('🧠 Inference complete. Derived facts:', inferenceResult.derivedFacts);
         console.log('🔍 Applied rules:', inferenceResult.appliedRules.map(r => r.name));
         
-        // Step 3: Select best diagnosis
         const diagnosis = this.selectBestDiagnosis(inferenceResult, inputs);
         console.log('✅ Selected diagnosis:', diagnosis.diagnosis);
         
-        // Step 4: Store in database
         this.storeDiagnosisInDatabase(diagnosis, inputs);
-        
-        // Store for reference
         this.lastDiagnosis = diagnosis;
         
         return diagnosis;
     }
 
-    /**
-     * Convert user inputs to facts for forward chaining
-     */
     convertInputsToFacts(inputs) {
         const facts = new Set();
         
-        // Convert input values to fact assertions
         if (inputs.recent_trauma === true) facts.add('recent_trauma');
         if (inputs.pain_signs === true) facts.add('pain_signs');
         if (inputs.head_tilt === true) facts.add('head_tilt');
@@ -302,7 +258,6 @@ class FelineNeuroForwardChainingEngine {
         if (inputs.ear_issues === true) facts.add('ear_issues');
         if (inputs.eye_signs === true) facts.add('eye_signs');
         
-        // Convert categorical inputs
         if (inputs.age_group === 'senior') facts.add('age_senior');
         if (inputs.age_group === 'kitten') facts.add('age_kitten');
         if (inputs.age_group === 'adult') facts.add('age_adult');
@@ -333,7 +288,7 @@ class FelineNeuroForwardChainingEngine {
         console.log('🔄 Starting forward chaining inference...');
         console.log('📋 Initial facts:', Array.from(initialFacts));
         
-        while (changed && iteration < 10) { // Prevent infinite loops
+        while (changed && iteration < 10) {
             changed = false;
             iteration++;
             
@@ -341,24 +296,10 @@ class FelineNeuroForwardChainingEngine {
             console.log('Current facts:', Array.from(workingMemory));
             
             for (const rule of this.forwardChainingRules) {
-                // Check if rule conditions are satisfied
-                const conditionsSatisfied = this.ruleConditionsSatisfied(rule, workingMemory);
-                
-                // Debug logging for problematic rules
-                if (rule.isDiagnosticRule && [9, 15, 22].includes(rule.originalRule?.priority)) {
-                    console.log(`🔍 Checking Rule ${rule.originalRule.priority} (${rule.id}):`, {
-                        conditions: rule.conditions,
-                        satisfied: conditionsSatisfied,
-                        currentFacts: Array.from(workingMemory)
-                    });
-                }
-                
-                if (conditionsSatisfied) {
-                    // Check if rule hasn't been applied yet
+                if (this.ruleConditionsSatisfied(rule, workingMemory)) {
                     if (!appliedRules.find(r => r.id === rule.id)) {
                         console.log(`✅ Applying rule: ${rule.name}`);
                         
-                        // Add conclusions to working memory
                         let newFactsAdded = false;
                         for (const conclusion of rule.conclusions) {
                             if (!workingMemory.has(conclusion)) {
@@ -368,7 +309,6 @@ class FelineNeuroForwardChainingEngine {
                             }
                         }
                         
-                        // Mark rule as applied
                         appliedRules.push({
                             ...rule,
                             appliedInIteration: iteration
@@ -377,12 +317,6 @@ class FelineNeuroForwardChainingEngine {
                         if (newFactsAdded) {
                             changed = true;
                         }
-                    }
-                } else {
-                    // Debug why rule didn't match
-                    if (rule.isDiagnosticRule && [9, 15, 22].includes(rule.originalRule?.priority)) {
-                        const missingConditions = rule.conditions.filter(c => !workingMemory.has(c));
-                        console.log(`❌ Rule ${rule.originalRule.priority} missing:`, missingConditions);
                     }
                 }
             }
@@ -398,20 +332,13 @@ class FelineNeuroForwardChainingEngine {
         };
     }
 
-    /**
-     * Check if rule conditions are satisfied
-     */
     ruleConditionsSatisfied(rule, workingMemory) {
         return rule.conditions.every(condition => workingMemory.has(condition));
     }
 
-    /**
-     * Select the best diagnosis from derived facts
-     */
     selectBestDiagnosis(inferenceResult, originalInputs) {
         const { derivedFacts, appliedRules } = inferenceResult;
         
-        // Find all diagnostic conclusions
         const diagnosticFacts = Array.from(derivedFacts).filter(fact => 
             fact.startsWith('diagnosis_')
         );
@@ -419,11 +346,9 @@ class FelineNeuroForwardChainingEngine {
         console.log('🎯 Diagnostic facts found:', diagnosticFacts);
         
         if (diagnosticFacts.length === 0) {
-            // No specific diagnosis found, return undetermined
             return this.createUndeterminedDiagnosis(inferenceResult, originalInputs);
         }
         
-        // Find the highest confidence diagnosis
         let bestDiagnosis = null;
         let highestConfidence = 0;
         
@@ -441,132 +366,95 @@ class FelineNeuroForwardChainingEngine {
             return this.createDiagnosisResult(bestDiagnosis.originalRule, inferenceResult, originalInputs);
         }
         
-        // Fallback to undetermined
         return this.createUndeterminedDiagnosis(inferenceResult, originalInputs);
     }
 
-    /**
-     * Create diagnosis result from selected rule
-     */
     createDiagnosisResult(rule, inferenceResult, originalInputs) {
         return {
-            // Core diagnosis information
             diagnosis: rule.name,
             priority: rule.priority,
             urgency: rule.urgency,
             description: rule.description,
-            
-            // Clinical information
             clinicalNotes: rule.clinicalNotes || [],
             nextSteps: rule.nextSteps || [],
-            
-            // Forward chaining specific information
             inferenceMethod: 'Forward Chaining',
             derivedFacts: Array.from(inferenceResult.derivedFacts),
             appliedRules: inferenceResult.appliedRules.map(r => r.name),
             iterations: inferenceResult.iterations,
-            
-            // Logic explanation
             logicExplanation: this.generateForwardChainingExplanation(rule, inferenceResult, originalInputs),
-            
-            // Metadata
             ruleId: rule.id,
             confidence: this.calculateRuleConfidence(rule),
             timestamp: new Date().toISOString()
         };
     }
 
-    /**
-     * Create undetermined diagnosis
-     */
     createUndeterminedDiagnosis(inferenceResult, originalInputs) {
         return {
             diagnosis: 'Undetermined Neurological Condition',
-            priority: 30,
+            priority: 29,
             urgency: 'MODERATE',
             description: 'The forward chaining inference could not determine a specific diagnosis based on the provided symptoms.',
-            
             clinicalNotes: [
                 'Multiple neurological signs present but no specific pattern identified',
                 'Further diagnostic testing recommended',
                 'Consider consultation with veterinary neurologist'
             ],
-            
             nextSteps: [
                 'Comprehensive neurological examination',
                 'Advanced diagnostic imaging (MRI/CT)',
                 'Laboratory workup including blood chemistry',
                 'Specialist consultation recommended'
             ],
-            
             inferenceMethod: 'Forward Chaining',
             derivedFacts: Array.from(inferenceResult.derivedFacts),
             appliedRules: inferenceResult.appliedRules.map(r => r.name),
             iterations: inferenceResult.iterations,
-            
             logicExplanation: this.generateUndeterminedExplanation(inferenceResult, originalInputs),
-            
             ruleId: 'UNDETERMINED',
             confidence: 0.6,
             timestamp: new Date().toISOString()
         };
     }
 
-    /**
-     * Generate forward chaining explanation
-     */
     generateForwardChainingExplanation(rule, inferenceResult, originalInputs) {
         let explanation = `Forward Chaining Inference Result:\n\n`;
-        
         explanation += `🎯 DIAGNOSIS: ${rule.name}\n`;
         explanation += `📊 Priority Level: ${rule.priority}\n`;
         explanation += `🔄 Inference Method: Forward Chaining\n`;
         explanation += `🔍 Iterations Required: ${inferenceResult.iterations}\n\n`;
-        
         explanation += `📋 Inference Process:\n`;
         explanation += `1. Started with ${Array.from(this.convertInputsToFacts(originalInputs)).length} initial facts from user input\n`;
         explanation += `2. Applied ${inferenceResult.appliedRules.length} inference rules\n`;
         explanation += `3. Derived ${inferenceResult.derivedFacts.size} total facts\n`;
         explanation += `4. Selected highest confidence diagnosis\n\n`;
-        
         explanation += `🧠 Applied Rules:\n`;
         inferenceResult.appliedRules.forEach((rule, index) => {
             explanation += `  ${index + 1}. ${rule.name} (Iteration ${rule.appliedInIteration})\n`;
         });
-        
         explanation += `\n🎯 Why this diagnosis was selected:\n`;
         explanation += `• Forward chaining derived the fact: diagnosis_${rule.id.toLowerCase()}\n`;
         explanation += `• This diagnosis has confidence level: ${this.calculateRuleConfidence(rule)}\n`;
         explanation += `• Rule conditions were satisfied through inference chain\n`;
-        
         return explanation;
     }
 
-    /**
-     * Generate undetermined explanation
-     */
     generateUndeterminedExplanation(inferenceResult, originalInputs) {
         let explanation = `Forward Chaining Inference Result:\n\n`;
-        
         explanation += `🎯 RESULT: No Specific Diagnosis Determined\n`;
         explanation += `🔄 Inference Method: Forward Chaining\n`;
         explanation += `🔍 Iterations Required: ${inferenceResult.iterations}\n\n`;
-        
         explanation += `📋 Inference Process:\n`;
         explanation += `1. Started with ${Array.from(this.convertInputsToFacts(originalInputs)).length} initial facts\n`;
         explanation += `2. Applied ${inferenceResult.appliedRules.length} inference rules\n`;
         explanation += `3. Derived ${inferenceResult.derivedFacts.size} total facts\n`;
         explanation += `4. No specific diagnostic conclusion reached\n\n`;
-        
         explanation += `🧠 Facts Derived:\n`;
         Array.from(inferenceResult.derivedFacts).forEach(fact => {
             if (!fact.startsWith('diagnosis_')) {
                 explanation += `  • ${fact}\n`;
             }
         });
-        
         explanation += `\n💡 Recommendation: Further evaluation needed for definitive diagnosis\n`;
-        
         return explanation;
     }
 

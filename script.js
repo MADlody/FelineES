@@ -1,13 +1,7 @@
-/**
- * Feline Neurological Diagnosis Application
- * Forward Chaining Implementation
- */
-
 class FelineNeuroDiagnosisApp {
     constructor() {
         console.log('🐱 Initializing Feline Neurological Diagnosis App...');
         
-        // Check if required classes exist
         if (typeof FelineNeuroForwardChainingEngine === 'undefined') {
             console.error('❌ FelineNeuroForwardChainingEngine class not found!');
             return;
@@ -18,23 +12,16 @@ class FelineNeuroDiagnosisApp {
             return;
         }
         
-        // Initialize the forward chaining engine
         this.engine = new FelineNeuroForwardChainingEngine(FelineNeuroDiagnosisData);
         this.isAnalyzing = false;
-        
-        // Initialize UI
         this.initializeUI();
         
         console.log('✅ Application initialized successfully');
     }
 
-    /**
-     * Initialize UI event listeners and form validation
-     */
     initializeUI() {
         console.log('🎨 Setting up UI event listeners...');
         
-        // Main diagnosis button
         const runBtn = document.getElementById('runDiagnosisBtn');
         if (runBtn) {
             console.log('✅ Found run diagnosis button, adding event listener');
@@ -46,20 +33,14 @@ class FelineNeuroDiagnosisApp {
             console.error('❌ Could not find run diagnosis button with ID: runDiagnosisBtn');
         }
 
-        // Form validation listeners
         this.setupFormValidation();
-        
         console.log('✅ UI initialization complete');
     }
 
-    /**
-     * Set up real-time form validation
-     */
     setupFormValidation() {
         const form = document.getElementById('diagnosisForm');
         if (!form) return;
 
-        // Listen for changes on all form inputs
         const inputs = form.querySelectorAll('select, input[type="checkbox"]');
         inputs.forEach(input => {
             input.addEventListener('change', () => {
@@ -67,7 +48,6 @@ class FelineNeuroDiagnosisApp {
             });
         });
 
-        // Initial validation
         this.updateFormCompleteness();
     }
 
